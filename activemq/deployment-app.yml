@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-activemq
+  namespace: dev
+  labels:
+    tier: backend 
+spec:
+  selector:
+    matchLabels:
+      app: app-activemq
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: app-activemq
+        tier: backend       
+    spec:        
+      containers:
+      - name: app-activemq
+        image: rmohr/activemq:5.15.9
+        ports:
+          - containerPort: 8161
+            name: admin
+          - containerPort: 61616
+            name: broker
+        volumeMounts:
+          - name: persistent-db-storage
+            mountPath: /opt/activemq/data                               
+      volumes:
+        - name: persistent-db-storage
+          persistentVolumeClaim:
+            claimName: my-database-pvc               
+
+            

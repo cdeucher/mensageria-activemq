@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-app-receiver
+  namespace: dev
+  labels:
+    tier: backend 
+spec:
+  selector:
+    matchLabels:
+      app: app-consumer
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: app-consumer
+        tier: backend       
+    spec:        
+      containers:
+      - name: app-consumer
+        image: activemq:dev 
+        env:
+        - name: CLASS
+          value: "com.activemq.consumer.Consumer"  
+        - name: QUEUE
+          value: "bla.bla"  
+        - name: MSGS
+          value: "1"  
+        - name: BROKER
+          value: "tcp://lb-activemq:61616"                                     
+        ports:
+          - containerPort: 8080
+            name: "http-server"               
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "256Mi"
+            cpu: "1"     
