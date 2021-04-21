@@ -7,7 +7,8 @@
 
 ## Mensagem (Message/Event)
 ---
-    Uma Message é um pequeno "pacote" com dados, este pacote é enviado a canais que se  responsabilizam por entregar esses pacotes aos sistemas interessados.  
+    Uma Message é um pequeno "pacote" com dados, este pacote é enviado a canais que se
+    responsabilizam por entregar esses pacotes aos sistemas interessados.  
     Pode ser um JSON, XML ou qualquer tipo de formato em bytes.
 
     Resumo do editor: Pense em uma carta.
