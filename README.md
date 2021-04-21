@@ -7,10 +7,10 @@
 
 ## Mensagem (Message/Event)
 ---
-    Uma Message é um pequeno "pacote" com dados, este pacote é enviado a canais que se<br> responsabilizam por entregar esses pacotes aos sistemas interessados.<br>
+    Uma Message é um pequeno "pacote" com dados, este pacote é enviado a canais que se  responsabilizam por entregar esses pacotes aos sistemas interessados.  
     Pode ser um JSON, XML ou qualquer tipo de formato em bytes.
 
-    \todo{Resumo do editor: Pense em uma carta.}
+    Resumo do editor: Pense em uma carta.
 ---
 ## Produtor (Producer/Sender)
     Producer é um programa que gera uma mensagem e envia para uma Queue.
