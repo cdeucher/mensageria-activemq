@@ -14,11 +14,19 @@
 ---
 ## Produtor (Producer/Sender)
     Producer é um programa que gera uma mensagem e envia para uma Queue.
+    - Head
+    - Body
 
     - Resumo do editor: É quem envia uma ou mais cartas.
 
-## Fila (Queue)
-    Queue é uma sequência de mensagens enfileiradas aguardando para serem removidas.
+## Fila (Queue/Channel)
+    Queue é uma sequência de mensagens enfileiradas aguardando para serem removidas.     
+    - <a href="https://www.enterpriseintegrationpatterns.com/patterns/conversation/FireAndForget.html">Fire-and-Forget</a>
+    - The Originator does not need to know anything about the Recipient
+    - The Fire-and-Forget conversation is stateless because there is no conversation state to be taken care of. 
+    - The simplicity and loose coupling of Fire-and-Forget comes at a price: error handling is not possible because there is no feedback regarding message delivery. 
+    - Point-to-Point Channel. <a href="https://github.com/caelum/apostila-microservices-com-spring-cloud/blob/master/10-mensageria-e-eventos.md">link</a>
+    - Competing Consumers.
 
     - Resumo do editor: Pense em uma caixa cheia de cartas empilhadas em uma agência dos correios.
     
@@ -35,9 +43,16 @@
 ## Agente de mensagens (Message Broker)
     Um Message Broker nada mais é que um servidor de mensagens, responsável por garantir que a mensagem seja enfileirada e armazenada em disco (opcional), garantindo que ela fique lá enquanto necessário até que alguém (consumidor) a retire.
     - ActiveMQ 
+    - Store and forward <a href="https://activemq.apache.org/how-do-distributed-queues-work">link</a><a href="https://livebook.manning.com/book/activemq-in-action/chapter-10/ch10lev2sec3">link</a>
+   
 
     - Resumo do editor: Pense em uma agência de correios.
 <img src="img/broker.png"/>
+
+#
+## Publish-Subscribe - (Topics, Pub/Sub, Channel)
+- <a href="https://github.com/caelum/apostila-microservices-com-spring-cloud/blob/master/10-mensageria-e-eventos.md">link</a>
+
 
 #
 
@@ -85,12 +100,9 @@
 ## Message (event)
     - A message is the unit of data which is sent between clients and servers.
     - A message has a body which is a buffer containing convenient methods for reading and writing data into it.
-
+    - 
 ## Point-to-Point - Queue 
     With this type of messaging you send a message to a queue. The message is then typically persisted to provide a guarantee of delivery, then some time later the messaging system delivers the message to a consumer. 
-
-## Publish-Subscribe - (topics, pub/sub)
-- <a href="https://access.redhat.com/documentation/en-us/red_hat_amq/7.2/html/using_amq_broker/addresses">link</a>
 
 ## Protocols
 - Openwire: <a href="https://activemq.apache.org/wire-protocol">Link</a>
