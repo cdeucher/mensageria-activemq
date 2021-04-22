@@ -7,8 +7,7 @@
 
 ## Mensagem (Message/Event)
 ---
-    Uma Message é um pequeno "pacote" com dados, este pacote é enviado a canais que se
-    responsabilizam por entregar esses pacotes aos sistemas interessados.  
+    Uma Message é um pequeno "pacote" com dados, este pacote é enviado a canais que se responsabilizam por entregar esses pacotes aos sistemas interessados.  
     Pode ser um JSON, XML ou qualquer tipo de formato em bytes.
 
     Resumo do editor: Pense em uma carta.
@@ -54,9 +53,11 @@
 ## Mundo Real 
 
 - Integrar sistemas desenvolvidos em tecnologias diferentes.
+
 <img src="img/desacoplamento.jpg"/>
 
 - Processar requisições de forma assíncrona e com escalabilidade.
+
 <img src="img/scalle.png"/>
 
 
@@ -143,9 +144,13 @@ Rabbitmq - a message broker; a MOM implementation; an open-source implementation
 
 kubectl port-forward svc/lb-activemq 8161:8161 -n dev
 kubectl port-forward svc/lb-activemq 61616:61616 -n dev
+kubectl port-forward deployment.apps/deploy-prometheus 9090:9090 -n dev
+kubectl port-forward svc/lb-grafana 3000:3000 -n dev
+
+kubectl scale deployment deploy-app-receiver --replicas=1 -n dev
+
 
 java -cp app.jar com.activemq.producer.Producer "bla.bla" 20 "tcp://localhost:61616"
 java -cp app.jar com.activemq.consumer.Consumer
 
-docker build -t activemq:dev .
 docker run -it --rm -eBROKER="tcp://activemq:61616" -eCLASS="com.activemq.consumer.Consumer" -eQUEUE="bla.bla" -eMSGS="1"  activemq:dev

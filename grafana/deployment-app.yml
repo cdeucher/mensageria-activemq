@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-grafana
+  namespace: dev
+  labels:
+    tier: backend 
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: grafana
+        tier: backend       
+    spec:        
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        ports:
+          - containerPort: 3000
+            name: web  

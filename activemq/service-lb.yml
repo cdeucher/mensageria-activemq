@@ -9,14 +9,22 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - name: "brokerx"
+  - name: "openwirex"
     protocol: TCP
-    targetPort: "broker"
+    targetPort: "openwire"
     port: 61616
+  - name: "stompx"
+    protocol: TCP
+    targetPort: "stomp"
+    port: 61613    
   - name: "adminx"
     protocol: TCP
     targetPort: "admin"
-    port: 8161    
+    port: 8161  
+  - name: "metricsx"
+    protocol: TCP
+    targetPort: "metrics"
+    port: 8080    
   selector:
     app: app-activemq
     tier: backend

@@ -20,12 +20,16 @@ spec:
     spec:        
       containers:
       - name: app-activemq
-        image: rmohr/activemq:5.15.9
+        image: activemq:custom
         ports:
           - containerPort: 8161
             name: admin
           - containerPort: 61616
-            name: broker
+            name: openwire
+          - containerPort: 61613
+            name: stomp  
+          - containerPort: 8080
+            name: metrics            
         volumeMounts:
           - name: persistent-db-storage
             mountPath: /opt/activemq/data                               
@@ -33,5 +37,6 @@ spec:
         - name: persistent-db-storage
           persistentVolumeClaim:
             claimName: my-database-pvc               
+
 
             

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-prometheus
+  namespace: dev
+  labels:
+    tier: backend 
+spec:
+  selector:
+    matchLabels:
+      app: prometheus
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: prometheus
+        tier: backend       
+    spec:        
+      containers:
+      - name: prometheus
+        image: prometheus:custom
+        ports:
+          - containerPort: 9090
+            name: web  

@@ -1,3 +1,4 @@
+# docker build -t app:dev .
 FROM openjdk:11
 
 RUN mkdir -p /usr/src/app
