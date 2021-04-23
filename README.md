@@ -164,11 +164,21 @@ kubectl port-forward svc/lb-activemq 8161:8161 -n dev
 kubectl port-forward svc/lb-activemq 61616:61616 -n dev
 kubectl port-forward deployment.apps/deploy-prometheus 9090:9090 -n dev
 kubectl port-forward svc/lb-grafana 3000:3000 -n dev
+kubectl port-forward svc/weave-scope-app 4040:80 -n weave
 
 kubectl scale deployment deploy-app-receiver --replicas=1 -n dev
+kubectl scale deployment deploy-app-receiver --replicas=10 -n dev
+
 
 
 java -cp app.jar com.activemq.producer.Producer "bla.bla" 20 "tcp://localhost:61616"
-java -cp app.jar com.activemq.consumer.Consumer
+java -cp app.jar com.activemq.consumer.Consumer "bla.bla" 20 "tcp://localhost:61616"
 
 docker run -it --rm -eBROKER="tcp://activemq:61616" -eCLASS="com.activemq.consumer.Consumer" -eQUEUE="bla.bla" -eMSGS="1"  activemq:dev
+
+
+
+
+kubectl get hpa -n dev
+kubectl describe hpa -n dev
+kube create -f app/scale-app-hpa-behavior.yml
