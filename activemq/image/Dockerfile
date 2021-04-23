@@ -1,4 +1,4 @@
-#docker build -t activemq:dev .
+#docker build -t activemq:custom .
 FROM rmohr/activemq:5.15.9
 
 ENV ACTIVEMQ_TCP=61616 ACTIVEMQ_AMQP=5672 ACTIVEMQ_STOMP=61613 ACTIVEMQ_MQTT=1883 ACTIVEMQ_WS=61614 ACTIVEMQ_UI=8161
