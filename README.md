@@ -5,54 +5,35 @@
 
 #
 
-## Mensagem (Message/Event)
----
+## Message/Event
     Uma Message é um pequeno "pacote" com dados, este pacote é enviado a canais que se responsabilizam por entregar esses pacotes aos sistemas interessados.  
     Pode ser um JSON, XML ou qualquer tipo de formato em bytes.
+    - Header
+    - Properties
+    - Body    
 
-    Resumo do editor: Pense em uma carta.
----
-## Produtor (Producer/Sender)
-    Producer é um programa que gera uma mensagem e envia para uma Queue.
-    - Head
-    - Body
+## Producer/Sender
+    Producer é um programa que gera uma mensagem e transmite para o Message Broker.
 
-    - Resumo do editor: É quem envia uma ou mais cartas.
-
-## Fila (Queue/Channel)
-    Queue é uma sequência de mensagens enfileiradas aguardando para serem removidas.     
-    - <a href="https://www.enterpriseintegrationpatterns.com/patterns/conversation/FireAndForget.html">Fire-and-Forget</a>
-    - The Originator does not need to know anything about the Recipient
-    - The Fire-and-Forget conversation is stateless because there is no conversation state to be taken care of. 
-    - The simplicity and loose coupling of Fire-and-Forget comes at a price: error handling is not possible because there is no feedback regarding message delivery. 
-    - Point-to-Point Channel. <a href="https://github.com/caelum/apostila-microservices-com-spring-cloud/blob/master/10-mensageria-e-eventos.md">link</a>
-    - Competing Consumers.
-
-    - Resumo do editor: Pense em uma caixa cheia de cartas empilhadas em uma agência dos correios.
+## Channel (Queue/Topic)
+    Caminho lógico utilizado para conectar o Producer ao Message Broker e transmitir a mensagem.
     
-## Consumidor (Consumer/Receiver)
-    Consumer é um programa que recebe as mensagens e retira da Queue.
+    - Queue
 
-    - Resumo do editor: É quem recebe uma ou mais cartas.
+    - Topic
+    
+## Consumer/Receiver/Subscriber
+    Consumer é um programa que recebe as mensagens e retira da Queue.
 
 #
 <img src="img/queue.png"/>
 
 #
 
-## Agente de mensagens (Message Broker)
+## Message Broker
     Um Message Broker nada mais é que um servidor de mensagens, responsável por garantir que a mensagem seja enfileirada e armazenada em disco (opcional), garantindo que ela fique lá enquanto necessário até que alguém (consumidor) a retire.
-    - ActiveMQ 
-    - Store and forward <a href="https://activemq.apache.org/how-do-distributed-queues-work">link</a><a href="https://livebook.manning.com/book/activemq-in-action/chapter-10/ch10lev2sec3">link</a>
-   
-
-    - Resumo do editor: Pense em uma agência de correios.
+ 
 <img src="img/broker.png"/>
-
-#
-## Publish-Subscribe - (Topics, Pub/Sub, Channel)
-- <a href="https://github.com/caelum/apostila-microservices-com-spring-cloud/blob/master/10-mensageria-e-eventos.md">link</a>
-
 
 #
 
@@ -78,6 +59,7 @@
 
 #
 ## Fontes
+- Mensageria e Eventos: <a href="https://github.com/caelum/apostila-microservices-com-spring-cloud/blob/master/10-mensageria-e-eventos.md">link</a>
 - Conceitos de Mensageria: <a href="https://pt.slideshare.net/waelsonn/1conceitos-de-mensageria">link</a>
 - Mensageria: <a href="https://medium.com/@devbrito91/mensageria-1330c6032049">link</a>
 - Enfileiramento de Mensagens: <a href="https://www.ibm.com/docs/pt-br/ibm-mq/9.0?topic=ssfksj-9-0-0-com-ibm-mq-pro-doc-q002620--htm">link</a>
@@ -100,10 +82,34 @@
 ## Message (event)
     - A message is the unit of data which is sent between clients and servers.
     - A message has a body which is a buffer containing convenient methods for reading and writing data into it.
-    - 
-## Point-to-Point - Queue 
-    With this type of messaging you send a message to a queue. The message is then typically persisted to provide a guarantee of delivery, then some time later the messaging system delivers the message to a consumer. 
 
+## Message Broker
+    - Store and forward <a href="https://activemq.apache.org/how-do-distributed-queues-work">link</a><a href="https://livebook.manning.com/book/activemq-in-action/chapter-10/ch10lev2sec3">link</a>
+   
+## Point-to-Point - (Queue/Channel)
+    With this type of messaging you send a message to a queue. 
+    The message is then typically persisted to provide a guarantee of delivery, then some time later the messaging system delivers the message to a consumer. 
+
+- If there are no consumers available at the time the message is sent it will be kept until a consumer is available that can process the message.<a href="https://activemq.apache.org/how-does-a-queue-compare-to-a-topic">link</a>
+- If a consumer receives a message and does not acknowledge it before closing then the message will be redelivered to another consumer. <a href="https://activemq.apache.org/how-does-a-queue-compare-to-a-topic">link</a>
+
+- <a href="https://www.enterpriseintegrationpatterns.com/patterns/conversation/FireAndForget.html">Fire-and-Forget</a>
+- The Originator does not need to know anything about the Recipient
+- The Fire-and-Forget conversation is stateless because there is no conversation state to be taken care of. 
+- The simplicity and loose coupling of Fire-and-Forget comes at a price: error handling is not possible because there is no feedback regarding message delivery. 
+- Point-to-Point Channel. <a href="https://github.com/caelum/apostila-microservices-com-spring-cloud/blob/master/10-mensageria-e-eventos.md">link</a>
+- Competing Consumers.
+- Message ordering. <a href="https://aws.amazon.com/pt/blogs/compute/implementing-fifo-message-ordering-with-amazon-mq-for-apache-activemq/">link</a>
+
+- Resumo do editor: Pense em uma caixa cheia de cartas empilhadas em uma agência dos correios.
+
+
+#
+## Publish-Subscribe - (Topics, Pub/Sub, Channel)
+- <a href="https://activemq.apache.org/how-does-a-queue-compare-to-a-topic">link</a>
+- <a href="https://github.com/caelum/apostila-microservices-com-spring-cloud/blob/master/10-mensageria-e-eventos.md">link</a>
+
+#
 ## Protocols
 - Openwire: <a href="https://activemq.apache.org/wire-protocol">Link</a>
 - Openwire is built ontop of TCP: <a href="https://activemq.apache.org/openwire">link</a>
